@@ -48,6 +48,23 @@ export const notesRouter = createTRPCRouter({
         }),
 
     list: publicProcedure.query(async ({ ctx }) => {
-        return await ctx.db.selectFrom("Note").selectAll().execute();
+        return await ctx.db
+            .selectFrom("Note")
+            .selectAll()
+            .orderBy("Note.createdAt", "desc")
+            .execute();
     }),
+
+    delete: protectedProcedure
+        .input(
+            z.object({
+                id: z.string(),
+            })
+        )
+        .mutation(async ({ ctx, input }) => {
+            return await ctx.db
+                .deleteFrom("Note")
+                .where("Note.id", "=", input.id)
+                .execute();
+        }),
 });

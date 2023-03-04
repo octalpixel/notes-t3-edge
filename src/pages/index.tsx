@@ -4,6 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { type CreateNoteInput, createNoteInputSchema } from "~/schemas/example";
 import { api, type RouterOutputs } from "~/utils/api";
 import { SignInButton, UserButton, useSession } from "@clerk/nextjs";
+import { useAutoAnimate } from "@formkit/auto-animate/react";
 
 function AuthShowcase() {
     const { isSignedIn } = useSession();
@@ -30,18 +31,49 @@ function AuthShowcase() {
 type NoteListQueryOutput = RouterOutputs["notes"]["list"][number];
 
 function NoteCard({ note }: { note: NoteListQueryOutput }) {
+    const ctx = api.useContext();
+    const { session } = useSession();
+    const { mutateAsync: deleteNote } = api.notes.delete.useMutation({
+        onSuccess: async () => {
+            await ctx.notes.list.invalidate();
+        },
+    });
+
     return (
-        <li className="rounded bg-zinc-800 p-4 transition-all duration-300 hover:scale-105">
+        <li className="relative rounded bg-zinc-800 p-4 transition-all duration-300 hover:scale-105">
             <div className="text-sm text-zinc-300">
-                {note.authorName} - {note.createdAt.toLocaleDateString()}
+                {note.authorName}{" "}
+                <span className="text-xs text-zinc-400">
+                    {note.createdAt.toLocaleDateString() +
+                        " " +
+                        note.createdAt
+                            .toLocaleTimeString()
+                            .split(":")
+                            .slice(0, 2)
+                            .join(":")}
+                </span>
             </div>
-            <div>{note.text}</div>
+            <p className="break-words">{note.text}</p>
+            {session?.user.id === note.authorId && (
+                <div className="absolute bottom-1 right-1 p-2">
+                    <button
+                        className="text-xs text-red-500"
+                        //eslint-disable-next-line @typescript-eslint/no-misused-promises
+                        onClick={async () => {
+                            await deleteNote({ id: note.id });
+                        }}
+                    >
+                        Delete
+                    </button>
+                </div>
+            )}
         </li>
     );
 }
 
 export default function Home() {
     const { isSignedIn } = useSession();
+    const [parent] = useAutoAnimate<HTMLUListElement>();
     const ctx = api.useContext();
     const listQuery = api.notes.list.useQuery();
     const createQuery = api.notes.create.useMutation({
@@ -73,7 +105,7 @@ export default function Home() {
                 <AuthShowcase />
                 <main className="container mx-auto max-w-3xl space-y-4 py-32">
                     <h1 className="text-2xl font-bold">Notes</h1>
-                    <ul className="space-y-4">
+                    <ul ref={parent} className="space-y-4">
                         {listQuery.data?.map((note) => (
                             <NoteCard key={note.id} note={note} />
                         ))}

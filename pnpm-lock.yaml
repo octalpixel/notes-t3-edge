@@ -3,6 +3,7 @@ lockfileVersion: 5.4
 specifiers:
   '@clerk/nextjs': ^4.11.3
   '@clerk/themes': ^1.4.3
+  '@formkit/auto-animate': 1.0.0-beta.6
   '@hookform/resolvers': ^2.9.11
   '@planetscale/database': ^1.5.0
   '@prisma/client': ^4.9.0
@@ -40,6 +41,7 @@ specifiers:
 dependencies:
   '@clerk/nextjs': 4.11.3_nvzgbose6yf6w7ijjprgspqefi
   '@clerk/themes': 1.4.3_react@18.2.0
+  '@formkit/auto-animate': 1.0.0-beta.6
   '@hookform/resolvers': 2.9.11_react-hook-form@7.43.4
   '@planetscale/database': 1.5.0
   '@prisma/client': 4.11.0_prisma@4.11.0
@@ -194,6 +196,10 @@ packages:
     resolution: {integrity: sha512-JXdzbRiWclLVoD8sNUjR443VVlYqiYmDVT6rGUEIEHU5YJW0gaVZwV2xgM7D4arkvASqD0IlLUVjHiFuxaftRw==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     dev: true
+
+  /@formkit/auto-animate/1.0.0-beta.6:
+    resolution: {integrity: sha512-PVDhLAlr+B4Xb7e+1wozBUWmXa6BFU8xUPR/W/E+TsQhPS1qkAdAsJ25keEnFrcePSnXHrOsh3tiFbEToOzV9w==}
+    dev: false
 
   /@hookform/resolvers/2.9.11_react-hook-form@7.43.4:
     resolution: {integrity: sha512-bA3aZ79UgcHj7tFV7RlgThzwSSHZgvfbt2wprldRkYBcMopdMvHyO17Wwp/twcJasNFischFfS7oz8Katz8DdQ==}
