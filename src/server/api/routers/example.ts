@@ -2,7 +2,11 @@ import { z } from "zod";
 import { nanoid } from "nanoid";
 import { createExampleInput } from "~/schemas/example";
 
-import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
+import {
+    createTRPCRouter,
+    protectedProcedure,
+    publicProcedure,
+} from "~/server/api/trpc";
 
 export const exampleRouter = createTRPCRouter({
     find: publicProcedure
@@ -65,6 +69,12 @@ export const exampleRouter = createTRPCRouter({
         return {
             list,
             time: timeEnd - timeStart,
+        };
+    }),
+
+    protected: protectedProcedure.query(({ ctx }) => {
+        return {
+            user: ctx.session.user,
         };
     }),
 });

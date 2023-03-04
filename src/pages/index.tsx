@@ -4,9 +4,14 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { type CreateExampleInput, createExampleInput } from "~/schemas/example";
 import { api } from "~/utils/api";
+import { useSession } from "@clerk/nextjs";
 
 const Home: NextPage = () => {
+    const { isSignedIn, session } = useSession();
     const ctx = api.useContext();
+    const protectedQuery = api.example.protected.useQuery(undefined, {
+        enabled: isSignedIn,
+    });
     const listQuery = api.example.list.useQuery();
     const createQuery = api.example.create.useMutation({
         onSuccess: async () => {
@@ -67,6 +72,13 @@ const Home: NextPage = () => {
                     )}
                     <button type="submit">Submit</button>
                 </form>
+                <div>
+                    {isSignedIn ? (
+                        <div>Hello, {protectedQuery.data?.user.firstName}</div>
+                    ) : (
+                        <div>Not signed in</div>
+                    )}
+                </div>
             </main>
         </>
     );
