@@ -1,10 +1,13 @@
-import type { Example } from "@prisma/client/edge";
+import type { Note } from "@prisma/client/edge";
 import { Kysely } from "kysely";
 import { PlanetScaleDialect } from "kysely-planetscale";
 import { env } from "~/env.mjs";
 
+/**
+ * Once you have your prisma.schema models set, you can import their generated types here from @prisma/client/edge
+ */
 interface Database {
-    Example: Example;
+    Note: Note;
 }
 
 export const db = new Kysely<Database>({

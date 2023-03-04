@@ -19,7 +19,6 @@ import { getAuth } from "@clerk/nextjs/server";
 import { db } from "~/server/db";
 import { initTRPC, TRPCError } from "@trpc/server";
 import superjson from "superjson";
-import { type NextRequest } from "next/server";
 
 type CreateContextOptions = {
     session: ReturnType<typeof getAuth>;

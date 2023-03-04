@@ -1,13 +1,8 @@
-import { getAuth, withClerkMiddleware } from "@clerk/nextjs/server";
+import { withClerkMiddleware } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
 export default withClerkMiddleware((req: NextRequest) => {
-    console.log("--- Clerk Middleware ---");
-    const session = getAuth(req);
-    console.log("Session:", session);
-    console.log("--- End Clerk Middleware ---");
-
     return NextResponse.next();
 });
 

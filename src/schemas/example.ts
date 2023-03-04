@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const createExampleInput = z.object({
+export const createNoteInputSchema = z.object({
     text: z.string().min(1).max(255),
 });
-export type CreateExampleInput = z.infer<typeof createExampleInput>;
+export type CreateNoteInput = z.infer<typeof createNoteInputSchema>;

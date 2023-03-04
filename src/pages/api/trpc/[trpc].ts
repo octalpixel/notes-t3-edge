@@ -10,10 +10,6 @@ import { getAuth } from "@clerk/nextjs/server";
  */
 export default async function handler(req: NextRequest) {
     const session = getAuth(req);
-    console.log("--- TRPC Handler ---");
-    console.log("Session:", session);
-    console.log("UserId:", session.userId);
-    console.log("--- End TRPC Handler ---");
 
     return fetchRequestHandler({
         endpoint: "/api/trpc",
@@ -35,5 +31,4 @@ export default async function handler(req: NextRequest) {
 
 export const config = {
     runtime: "experimental-edge",
-    regions: "gru1",
 };

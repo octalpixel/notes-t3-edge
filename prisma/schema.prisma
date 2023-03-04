@@ -6,14 +6,16 @@ generator client {
 }
 
 datasource db {
-    provider = "mysql"
-    url      = env("DATABASE_URL")
+    provider     = "mysql"
+    url          = env("DATABASE_URL")
     relationMode = "prisma"
 }
 
-model Example {
-    id        String   @id @default(cuid())
-    text String
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+model Note {
+    id         String   @id @default(cuid())
+    text       String
+    authorId   String
+    authorName String
+    createdAt  DateTime @default(now())
+    updatedAt  DateTime @updatedAt
 }
