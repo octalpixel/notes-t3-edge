@@ -48,12 +48,9 @@ export const createInnerTRPCContext = (_opts: CreateContextOptions) => {
  *
  * @see https://trpc.io/docs/context
  */
-export const createTRPCContext = (
-    _opts: CreateNextContextOptions,
-    req: NextRequest
-) => {
+export const createTRPCContext = (_opts: CreateNextContextOptions) => {
     return createInnerTRPCContext({
-        session: getAuth(req),
+        session: getAuth(_opts.req),
     });
 };
 

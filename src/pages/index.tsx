@@ -5,6 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { type CreateExampleInput, createExampleInput } from "~/schemas/example";
 import { api } from "~/utils/api";
 import { useSession } from "@clerk/nextjs";
+import Link from "next/link";
 
 const Home: NextPage = () => {
     const { isSignedIn, session } = useSession();
@@ -74,9 +75,18 @@ const Home: NextPage = () => {
                 </form>
                 <div>
                     {isSignedIn ? (
-                        <div>Hello, {protectedQuery.data?.user.firstName}</div>
+                        <div>
+                            Hello,{" "}
+                            {protectedQuery.data?.user.firstName ??
+                                "Failed to auth (server-side)"}
+                        </div>
                     ) : (
-                        <div>Not signed in</div>
+                        <div>
+                            Not signed in{" "}
+                            <Link className="underline" href="/signin">
+                                Sign In
+                            </Link>
+                        </div>
                     )}
                 </div>
             </main>
