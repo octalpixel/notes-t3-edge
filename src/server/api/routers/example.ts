@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { nanoid } from "nanoid"
+import { nanoid } from "nanoid";
 import { createExampleInput } from "~/schemas/example";
 
 import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
@@ -19,19 +19,24 @@ export const exampleRouter = createTRPCRouter({
         }),
 
     create: publicProcedure
-        .input(
-            createExampleInput
-        )
+        .input(createExampleInput)
         .mutation(async ({ ctx, input }) => {
-            return await ctx.db
+            const id = nanoid();
+            const timeStart = new Date();
+            await ctx.db
                 .insertInto("Example")
                 .values({
-                    id: nanoid(),
+                    id,
                     text: input.text,
-                    createdAt: new Date(),
-                    updatedAt: new Date(),
+                    createdAt: timeStart,
+                    updatedAt: timeStart,
                 })
                 .execute();
+            const timeEnd = new Date();
+            return {
+                id,
+                time: timeEnd.getTime() - timeStart.getTime(),
+            };
         }),
 
     update: publicProcedure
@@ -60,6 +65,6 @@ export const exampleRouter = createTRPCRouter({
         return {
             list,
             time: timeEnd - timeStart,
-        }
+        };
     }),
 });

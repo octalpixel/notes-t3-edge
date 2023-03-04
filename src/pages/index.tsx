@@ -59,6 +59,12 @@ const Home: NextPage = () => {
                             {errors.text.message}
                         </p>
                     )}
+                    {createQuery.data && (
+                        <p className="text-sm text-blue-500">
+                            Elapsed insert time {createQuery.data.time}ms (from
+                            server to db)
+                        </p>
+                    )}
                     <button type="submit">Submit</button>
                 </form>
             </main>
