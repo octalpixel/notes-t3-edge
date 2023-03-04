@@ -74,7 +74,7 @@ export const exampleRouter = createTRPCRouter({
 
     protected: protectedProcedure.query(({ ctx }) => {
         return {
-            user: ctx.session.user,
+            userId: ctx.session.userId,
         };
     }),
 });

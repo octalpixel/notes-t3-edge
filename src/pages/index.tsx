@@ -77,7 +77,7 @@ const Home: NextPage = () => {
                     {isSignedIn ? (
                         <div>
                             Hello,{" "}
-                            {protectedQuery.data?.user.firstName ??
+                            {protectedQuery.data?.userId ??
                                 "Failed to auth (server-side)"}
                         </div>
                     ) : (
