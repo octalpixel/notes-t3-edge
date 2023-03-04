@@ -20,4 +20,5 @@ export default api.withTRPC(MyApp);
 
 export const config = {
     runtime: "experimental-edge",
+    regions: "iad1"
 };
