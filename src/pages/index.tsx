@@ -14,12 +14,16 @@ const Home: NextPage = () => {
         },
     });
 
-    const { handleSubmit, register, formState: {errors} } = useForm<CreateExampleInput>({
+    const {
+        handleSubmit,
+        register,
+        formState: { errors },
+    } = useForm<CreateExampleInput>({
         resolver: zodResolver(createExampleInput),
     });
 
     async function onSubmit(data: CreateExampleInput) {
-       await createQuery.mutateAsync(data);
+        await createQuery.mutateAsync(data);
     }
 
     return (
@@ -31,7 +35,10 @@ const Home: NextPage = () => {
             </Head>
             <main className="container mx-auto max-w-3xl space-y-4 py-32">
                 <h1>Examples</h1>
-                <h2>Elapsed fetch time {listQuery.data?.time}ms</h2>
+                <h2>
+                    Elapsed fetch time {listQuery.data?.time}ms (from server to
+                    db)
+                </h2>
                 <ul className="space-y-4">
                     {listQuery.data?.list.map((example) => (
                         <li key={example.id}>
@@ -40,11 +47,18 @@ const Home: NextPage = () => {
                         </li>
                     ))}
                 </ul>
-                {/* eslint-disable-next-line @typescript-eslint/no-misused-promises */}
-                <form className="flex flex-col" onSubmit={handleSubmit(onSubmit)}>
+                <form
+                    //eslint-disable-next-line @typescript-eslint/no-misused-promises
+                    onSubmit={handleSubmit(onSubmit)}
+                    className="flex flex-col"
+                >
                     <label htmlFor="text">Text</label>
                     <textarea className="p-4" {...register("text")} rows={8} />
-                    {errors && errors.text && <p className="text-red-500 text-sm">{errors.text.message}</p>}
+                    {errors && errors.text && (
+                        <p className="text-sm text-red-500">
+                            {errors.text.message}
+                        </p>
+                    )}
                     <button type="submit">Submit</button>
                 </form>
             </main>
