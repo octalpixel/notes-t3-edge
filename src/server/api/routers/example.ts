@@ -7,6 +7,7 @@ import {
     protectedProcedure,
     publicProcedure,
 } from "~/server/api/trpc";
+import { clerkClient } from "@clerk/nextjs/server";
 
 export const exampleRouter = createTRPCRouter({
     find: publicProcedure
@@ -72,9 +73,9 @@ export const exampleRouter = createTRPCRouter({
         };
     }),
 
-    protected: protectedProcedure.query(({ ctx }) => {
+    protected: protectedProcedure.query(async ({ ctx }) => {
         return {
-            userId: ctx.session.userId,
+            user: await clerkClient.users.getUser(ctx.session.userId),
         };
     }),
 });
