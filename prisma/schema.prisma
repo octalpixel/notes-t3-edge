@@ -13,7 +13,7 @@ datasource db {
 
 model Note {
     id         String   @id @default(cuid())
-    text       String
+    text       String   @db.Text()
     authorId   String
     authorName String
     createdAt  DateTime @default(now())

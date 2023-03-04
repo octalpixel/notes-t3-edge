@@ -1,7 +1,7 @@
 import Head from "next/head";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { type CreateNoteInput, createNoteInputSchema } from "~/schemas/example";
+import { type CreateNoteInput, createNoteInputSchema } from "~/schemas/note";
 import { api, type RouterOutputs } from "~/utils/api";
 import { SignInButton, UserButton, useSession } from "@clerk/nextjs";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
@@ -21,7 +21,7 @@ function AuthShowcase() {
                 </div>
             ) : (
                 <div className="flex items-center justify-end">
-                    <SignInButton mode="modal" />
+                    <SignInButton mode="modal" redirectUrl="/" />
                 </div>
             )}
         </div>
@@ -121,6 +121,7 @@ export default function Home() {
                                 placeholder="Note body"
                                 className="resize-none rounded-t bg-zinc-800 p-4"
                                 {...register("text")}
+                                maxLength={255}
                                 rows={8}
                             />
                             {errors && errors.text && (

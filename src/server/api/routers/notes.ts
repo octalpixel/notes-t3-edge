@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { nanoid } from "nanoid";
-import { createNoteInputSchema } from "~/schemas/example";
+import { createNoteInputSchema } from "~/schemas/note";
 import {
     createTRPCRouter,
     protectedProcedure,
