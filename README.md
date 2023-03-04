@@ -4,7 +4,7 @@ This is a  project bootstrapped with `create-t3-app`.
 
 ## Modified [T3 Stack](https://create.t3.gg/), made to work on the edge runtime.
 
-Get that sweet no-coldboot fullstack typesafe app running on vercel quick.
+Get that sweet no-coldboot fullstack typesafe app running on Vercel quick.
 
 - [Clerk](https://clerk.dev), instead of Auth.js (NextAuth)
 - [Kysely](https://koskimas.github.io/kysely/), as a query builder replacer for Prisma, not perfect but provides a nice typesafe DX, while working on the edge with the fast planescale's database.js
