@@ -15,7 +15,6 @@
  * These allow you to access things when processing a request, like the database, the session, etc.
  */
 import { type CreateNextContextOptions } from "@trpc/server/adapters/next";
-
 import { db } from "~/server/db";
 
 type CreateContextOptions = Record<string, never>;
@@ -53,6 +52,7 @@ export const createTRPCContext = (_opts: CreateNextContextOptions) => {
  */
 import { initTRPC } from "@trpc/server";
 import superjson from "superjson";
+import { NextFetchEvent } from "next/server";
 
 const t = initTRPC.context<typeof createTRPCContext>().create({
     transformer: superjson,
